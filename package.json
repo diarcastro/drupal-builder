@@ -1,12 +1,29 @@
 {
   "name": "@evolvingweb/glider-builder",
-  "version": "0.0.1",
+  "version": "1.0.0",
   "description": "Drupal themes assets builder",
   "main": "index.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+  "type": "module",
+  "bin": {
+    "glider-builder": "bin/glider-builder.js"
   },
   "keywords": [],
   "author": "",
-  "license": "ISC"
+  "license": "ISC",
+  "devDependencies": {
+    "commander": "^9.4.1",
+    "deepmerge": "^4.2.2",
+    "del": "^7.0.0",
+    "gulp": "^4.0.2",
+    "gulp-autoprefixer": "^8.0.0",
+    "gulp-plumber": "^1.2.1",
+    "gulp-rename": "^2.0.0",
+    "gulp-sass": "^5.1.0",
+    "gulp-sourcemaps": "^3.0.0",
+    "sass": "^1.56.1",
+    "yargs": "^17.6.2"
+  },
+  "engines": {
+    "node": ">=16.x"
+  }
 }
