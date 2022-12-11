@@ -12,10 +12,11 @@ builder
     .option('-D, --dev', 'Build assets in development mode. This will prevent minify the assets.')
     .option('-P, --prod', 'Build assets in production mode. This is default option.');
 
-builder.command('scss')
+builder.command('sass')
     .description('Transpile scss files to css.')
     .action(() => {
-      compileSass(() => {
+      compileSass((err) => {
+        console.log({ err });
       });
     });
 builder.command('cleanCss')

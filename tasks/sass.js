@@ -7,6 +7,8 @@ import plumber from 'gulp-plumber';
 import rename from 'gulp-rename';
 import { deleteSync } from 'del';
 import path from 'path';
+import postcss from 'gulp-postcss';
+import tailwindcss from 'tailwindcss';
 
 import { isDev } from '../config/env.js';
 import config from '../config/config.js';
@@ -26,6 +28,7 @@ const compileSass = (done) => {
 
   task = task.pipe(sourcemaps.init())
       .pipe(sass(sassOptions.compilerOptions).on('error', isDev ? sass.logError : done))
+      .pipe(postcss([tailwindcss])).on('error', (e) => done(e))
       .pipe(autoprefixer(autoprefixerOptions));
 
   task = task.pipe(rename(renameOptions))
