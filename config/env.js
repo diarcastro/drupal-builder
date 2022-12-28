@@ -1,6 +1,12 @@
-import yargs from 'yargs'
-import { hideBin } from 'yargs/helpers';
+const yargs = require('yargs');
+const { hideBin } = require('yargs/helpers');
 
-export const args = yargs(hideBin(process.argv)).argv;
-export const isDev = !!args.dev;
-export const isProd = !isDev;
+const args = yargs(hideBin(process.argv)).argv;
+const isDev = !!args.dev;
+const isProd = !isDev;
+
+module.exports = {
+  args,
+  isDev,
+  isProd,
+};

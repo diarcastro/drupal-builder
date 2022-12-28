@@ -1,14 +1,24 @@
-import path from 'path';
-import { isProd } from './env.js';
+const path = require('path');
+const { isProd } = require('./env.js');
 
 const defaultConfig = {
   name: 'glider-builder',
+  css: {
+    theme: {
+      base: path.join(process.cwd(), 'src/sass/'),
+      src: path.join(process.cwd(), 'src/sass/**/!(_*).scss'),
+      dest: path.join(process.cwd(), 'dist/css/'),
+    },
+    // patterns: {
+    //   src: path.join(process.cwd(), 'patterns/**/!(_*).scss'),
+    //   dest: '../dist/css/',
+    // },
+  },
   sassOptions: {
-    files: 'src/sass/**/*.scss',
-    destination: 'dist/css/',
     compilerOptions: {
       errLogToConsole: true,
       outputStyle: isProd ? 'compressed' : 'expanded',
+      sourceMap: !isProd,
       includePaths: [
         path.join(process.cwd(), '/node_modules/'),
         path.join(process.cwd(), '/src/sass/'),
@@ -17,4 +27,4 @@ const defaultConfig = {
   }
 };
 
-export default defaultConfig;
+module.exports = defaultConfig;
