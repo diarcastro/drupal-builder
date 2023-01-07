@@ -18,12 +18,14 @@ const {
 
 const {
   CleanWebpackPlugin,
+  CssMinimizerPlugin,
   MiniCssExtractPlugin,
 } = plugins;
 
 const webpackConfiguration = [];
 const defaultCSSWebpackConfig = {
   mode: envMode,
+  devtool: 'source-map',
   entry: {},
   output: {
     path: currentDirectory,
@@ -50,7 +52,10 @@ Object.keys(cssOptions).forEach((cssKey) => {
       CleanWebpackPlugin,
     ],
     optimization: {
-      minimize: true,
+      minimizer: [
+        `...`,
+        new CssMinimizerPlugin(),
+      ],
     },
   };
   const entry = {};
