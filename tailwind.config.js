@@ -1,14 +1,12 @@
-// export default {
 module.exports = {
+  darkMode: 'class',
   content: [
     './src/**/*.js',
-    './templates/**/*.twig',
-    './templates/*.html',
-    './patterns/**/*.twig',
+    './templates/**/*.{twig,html}',
+    './patterns/**/*.{twig,html,js}',
   ],
   theme: {
-    extend: {
-    },
+    extend: {},
   },
   plugins: [],
   /* https://tailwindcss.com/docs/content-configuration#safelisting-classes */

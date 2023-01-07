@@ -2,6 +2,7 @@ const glob = require('glob');
 const path = require('path');
 
 const config = require('./config/config');
+const { envMode } = require('./config/env');
 const loaders = require('./config/loaders');
 const plugins = require('./config/plugins');
 
@@ -22,7 +23,7 @@ const {
 
 const webpackConfiguration = [];
 const defaultCSSWebpackConfig = {
-  mode: 'development',
+  mode: envMode,
   entry: {},
   output: {
     path: currentDirectory,
@@ -48,6 +49,9 @@ Object.keys(cssOptions).forEach((cssKey) => {
       MiniCssExtractPlugin,
       CleanWebpackPlugin,
     ],
+    optimization: {
+      minimize: true,
+    },
   };
   const entry = {};
   glob.sync(src).map((scssFile) => {
@@ -63,4 +67,5 @@ Object.keys(cssOptions).forEach((cssKey) => {
   webpackConfiguration.push(configuration);
 });
 
+console.log(`Running Glider builder in ${envMode}...`);
 module.exports = webpackConfiguration;

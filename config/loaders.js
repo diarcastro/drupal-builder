@@ -8,7 +8,18 @@ const CSSLoader = {
   exclude: /node_modules/,
   use: [
     MiniCssExtractPlugin.loader,
-    'css-loader',
+    {
+      loader: "css-loader",
+      options: {
+        modules: false,
+      },
+    },
+    {
+      loader: 'postcss-loader',
+      options: {
+        sourceMap: true,
+      },
+    },
     {
       loader: 'sass-loader',
       options: {
