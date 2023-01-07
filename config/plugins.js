@@ -14,6 +14,8 @@ const cleanWebpackPlugin = new CleanWebpackPlugin({
   cleanAfterEveryBuildPatterns: [
     'dist/css/**/*.js', // Remove all unwanted, auto generated JS files from dist/css folder.
     'dist/css/**/*.js.map',
+    'patterns/**/dist/css/**/*.js', // Remove all unwanted, auto generated JS files from patterns folder.
+    'patterns/**/dist/css/**/*.js.map',
   ],
 });
 

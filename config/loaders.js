@@ -9,7 +9,7 @@ const CSSLoader = {
   use: [
     MiniCssExtractPlugin.loader,
     {
-      loader: "css-loader",
+      loader: 'css-loader',
       options: {
         modules: false,
       },
@@ -23,7 +23,6 @@ const CSSLoader = {
     {
       loader: 'sass-loader',
       options: {
-        // Prefer `dart-sass`
         implementation: require('sass'),
         sassOptions,
       },

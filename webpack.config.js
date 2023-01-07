@@ -40,6 +40,7 @@ const defaultCSSWebpackConfig = {
 Object.keys(cssOptions).forEach((cssKey) => {
   const cssEntry = cssOptions[cssKey] || {};
   const {
+    relative,
     base,
     dest,
     src,
@@ -60,9 +61,11 @@ Object.keys(cssOptions).forEach((cssKey) => {
   };
   const entry = {};
   glob.sync(src).map((scssFile) => {
-    const newFile = scssFile.replace(base, '').replace('.scss', '.css');
-    const output = path.join(dest, newFile);
-
+    const realBase = base || path.dirname(path.dirname(scssFile));
+    const newFile = relative
+        ? path.basename(scssFile, '.scss')
+        : scssFile.replace(realBase, '').replace('.scss', '.css');
+    const output = path.join(relative ? realBase : '', dest, newFile);
     const bundleName = output
         .replace('.css', '')
         .replace(currentDirectory, '');
