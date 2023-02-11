@@ -5,5 +5,6 @@ coverage
 .nyc_output
 dist
 build
+temp
 .vscode
 .idea

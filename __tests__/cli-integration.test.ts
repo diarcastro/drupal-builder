@@ -17,15 +17,14 @@ test('outputs help', async () => {
   expect(output).toContain('0.0.1')
 })
 
-test('generates file', async () => {
-  const output = await cli('generate foo')
+test('generate behavior', async () => {
+  const output = await cli('generate behavior foo')
 
-  expect(output).toContain('Generated file at models/foo-model.js')
-  const foomodel = filesystem.read('models/foo-model.js')
+  expect(output).toContain('The Behavior was generated at foo.behavior.js')
+  const foomodel = filesystem.read('foo.behavior.js')
 
-  expect(foomodel).toContain(`module.exports = {`)
-  expect(foomodel).toContain(`name: 'foo'`)
+  expect(foomodel).toContain(`Drupal.behaviors.foo`)
 
   // cleanup artifact
-  filesystem.remove('models')
+  filesystem.remove('foo.behavior.js')
 })

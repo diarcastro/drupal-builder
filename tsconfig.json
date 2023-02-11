@@ -1,7 +1,7 @@
 {
   "compilerOptions": {
-    "allowSyntheticDefaultImports": false,
     "experimentalDecorators": true,
+    "baseUrl": "./src",
     "lib": [
       "es2015",
       "scripthost",

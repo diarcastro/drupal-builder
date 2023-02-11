@@ -1,0 +1,14 @@
+/* global once */
+
+((Drupal, once) => {
+  Drupal.behaviors.<%=  props.behaviorName  %> = {
+    attach(context/*, settings */) {
+      once('<%=  props.behaviorNameKebab  %>', '.<%=  props.behaviorNameKebab  %>', context)
+          .forEach((element) => {
+            // Do something.
+          });
+    },
+    detach(/*context, settings */) {
+    },
+  };
+})(Drupal, once);

@@ -14,10 +14,7 @@ async function run(argv) {
     .create()
 
   // and run it
-  const toolbox = await cli.run(argv)
-
-  // send it back (for testing, mostly)
-  return toolbox
+  return cli.run(argv)
 }
 
 module.exports = { run }
