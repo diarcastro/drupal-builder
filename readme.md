@@ -1,25 +1,22 @@
 # glider-builder CLI
 
-A CLI for glider-builder.
+A CLI for to transpile, build and generate Drupal theme assets.
 
-## Customizing your CLI
+## Generators
 
-Check out the documentation at https://github.com/infinitered/gluegun/tree/master/docs.
+### Drupal Behaviors
 
-## Publishing to NPM
-
-To package your CLI up for NPM, do this:
+Add the capability to add Drupal behaviors to your theme.
 
 ```shell
-$ npm login
-$ npm whoami
-$ npm lint
-$ npm test
-(if typescript, run `npm run build` here)
-$ npm publish
+glider-builder generate my-drupal-behavior
 ```
 
-# License
+## Contributors
+
+- [Diego Castro](https://twitter.com/diarcastro)
+
+## License
 
 MIT - see LICENSE
 

@@ -1,12 +1,9 @@
 import { GluegunToolbox } from 'gluegun';
-import { kebabCase, toLower, camelCase } from 'lodash';
+import { kebabCase, camelCase } from 'lodash';
 
 import { fileExists } from '../utils/fs';
+import Behavior from '../utils/behaviors'
 
-const behaviorKeys = [
-  'behavior',
-  'b',
-];
 
 module.exports = {
   name: 'generate',
@@ -28,29 +25,26 @@ module.exports = {
     } = parameters || {};
 
     if (generatorType) {
-      const isBehavior = behaviorKeys.includes(toLower(generatorType));
+      const isBehavior = Behavior.isBehavior(generatorType);
       let componentName = camelCase(name);
 
       if (!componentName) {
-        let messageComponentType = 'Behavior';
-        if (isBehavior) {
-          messageComponentType = 'Behavior';
-        }
         const result = await toolbox.prompt.ask([
           {
             type: 'input',
             name: 'componentName',
-            message: `What is the name of the new ${messageComponentType}?`,
+            message: isBehavior ? Behavior.componentNameQuestion : `What is the name of the new component?`
           }
         ]);
 
         componentName = camelCase(result.componentName);
       }
 
-
       if (isBehavior) {
+        const questionsResult = await toolbox.prompt.ask(Behavior.questions);
+        const { behaviorPath = '' } = questionsResult;
         const componentNameKebabCase = kebabCase(componentName);
-        const target = `${componentNameKebabCase}.behavior.js`;
+        const target = `${behaviorPath}${componentNameKebabCase}.behavior.js`;
 
         if (fileExists(target)) {
           error(`The Behavior ${componentName} already exists at ${target}`);
