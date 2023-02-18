@@ -2,7 +2,6 @@ import { GluegunToolbox } from 'gluegun';
 import {
   kebabCase,
   camelCase,
-  // map,
 } from 'lodash';
 
 import { fileExists } from '../utils/fs';
@@ -48,8 +47,8 @@ module.exports = {
       if (isBehavior) {
         const questionsResult = await toolbox.prompt.ask(Behavior.questions);
         const { behaviorPath = '' } = questionsResult;
-        const componentNameKebabCase = kebabCase(componentName);
-        const target = `${behaviorPath}${componentNameKebabCase}.behavior.js`;
+        const componentNameFilename = kebabCase(componentName);
+        const target = `${behaviorPath}${componentNameFilename}.behavior.js`;
 
         if (fileExists(target)) {
           error(`The Behavior ${componentName} already exists at ${target}`);
@@ -60,8 +59,8 @@ module.exports = {
           template: 'behavior.js.ejs',
           target,
           props: {
-            behaviorName: componentName,
-            behaviorNameKebab: componentNameKebabCase,
+            componentName,
+            componentNameFilename,
           },
         });
 
@@ -71,7 +70,6 @@ module.exports = {
         return UIPattern.generate(toolbox, componentName);
       }
     }
-
 
     info('Please provide a generator name. e.g. `glider-builder g behavior`');
   },
