@@ -1,0 +1,14 @@
+/* global once */
+
+((Drupal, once) => {
+  Drupal.behaviors.<%=  props.componentName  %> = {
+    attach(context/*, settings */) {
+      once('<%=  props.componentNameFilename  %>', '.<%=  props.componentNameFilename  %>', context)
+          .forEach((element) => {
+            // Do something awesome.
+          });
+    },
+    detach(/*context, settings */) {
+    },
+  };
+})(Drupal, once);

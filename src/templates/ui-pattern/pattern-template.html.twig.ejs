@@ -1,0 +1,10 @@
+{% set classes = [
+    '<%= props.componentNameFilename %>',
+    variant ? '<%= props.componentNameFilename %>--' ~ variant,
+] %}
+
+{% block content %}
+    <div {{ attributes.addClass(classes) }}>
+        <h2>{{ <%= props.componentName %> }}</h2>
+    </div>
+{% endblock %}

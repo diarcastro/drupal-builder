@@ -1,0 +1,27 @@
+<%= props.componentNameSnakeCase %>:
+  label: "<%= props.label %>"
+  description: "<%= props.label %> description."
+  variants:
+    default:
+      label: Default
+      description: "Default <%= props.label %>."
+    <% if (props.variantNameSnakeCase) { %><%= props.variantNameSnakeCase %>:
+      label: "<%= props.variantLabel %>"
+      description: "<%= props.variantLabel %> <%= props.label %>."<% } %>
+  fields:
+    title:
+      type: string
+      label: Title
+      description: "Title description."
+      preview: "Preview title"
+  libraries:
+    -
+      <%= props.componentNameSnakeCase %>:
+        <% if (props.scss) {%>css:
+          component:
+            dist/css/<%= props.componentNameFilename%>.pattern.min.css: { minified: true }<% } %>
+        <% if (props.js) {%>js:
+          dist/js/<%= props.componentNameFilename%>.pattern.min.js: { minified: true }
+        dependencies:
+          - core/drupal
+          - core/once<% } %>

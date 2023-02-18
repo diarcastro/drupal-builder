@@ -1,9 +1,13 @@
 import { GluegunToolbox } from 'gluegun';
-import { kebabCase, camelCase } from 'lodash';
+import {
+  kebabCase,
+  camelCase,
+  // map,
+} from 'lodash';
 
 import { fileExists } from '../utils/fs';
 import Behavior from '../utils/behaviors'
-
+import UiPatterns, { UIPattern } from '../utils/ui-patterns'
 
 module.exports = {
   name: 'generate',
@@ -26,6 +30,7 @@ module.exports = {
 
     if (generatorType) {
       const isBehavior = Behavior.isBehavior(generatorType);
+      const isUIPattern = UiPatterns.isUIPattern(generatorType);
       let componentName = camelCase(name);
 
       if (!componentName) {
@@ -62,6 +67,8 @@ module.exports = {
 
         success(`The Behavior was generated at ${target}`);
         return;
+      } else if (isUIPattern) {
+        return UIPattern.generate(toolbox, componentName);
       }
     }
 
