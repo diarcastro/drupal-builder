@@ -1,4 +1,4 @@
-const { build } = require('gluegun')
+const { build } = require('gluegun');
 
 /**
  * Create the cli and kick it off
@@ -14,7 +14,7 @@ async function run(argv) {
     .create()
 
   // and run it
-  return cli.run(argv)
+  return cli.run(argv);
 }
 
-module.exports = { run }
+module.exports = { run };

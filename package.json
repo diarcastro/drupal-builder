@@ -1,6 +1,6 @@
 {
   "name": "glider-builder",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "glider-builder CLI",
   "bin": {
     "glider-builder": "bin/glider-builder"
