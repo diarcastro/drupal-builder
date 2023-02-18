@@ -9,7 +9,15 @@ A CLI for to transpile, build and generate Drupal theme assets.
 Add the capability to add Drupal behaviors to your theme.
 
 ```shell
-glider-builder generate my-drupal-behavior
+glider-builder new behavior my-drupal-behavior
+```
+
+### Drupal UI Patterns
+
+Add the capability to add Drupal UI Patterns to your theme.
+
+```shell
+glider-builder new pattern my-component
 ```
 
 ## Contributors
