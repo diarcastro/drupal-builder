@@ -1,9 +1,12 @@
 import { GluegunToolbox } from 'gluegun';
-import { kebabCase, camelCase } from 'lodash';
+import {
+  kebabCase,
+  camelCase,
+} from 'lodash';
 
 import { fileExists } from '../utils/fs';
 import Behavior from '../utils/behaviors'
-
+import UiPatterns, { UIPattern } from '../utils/ui-patterns'
 
 module.exports = {
   name: 'generate',
@@ -26,6 +29,7 @@ module.exports = {
 
     if (generatorType) {
       const isBehavior = Behavior.isBehavior(generatorType);
+      const isUIPattern = UiPatterns.isUIPattern(generatorType);
       let componentName = camelCase(name);
 
       if (!componentName) {
@@ -43,8 +47,8 @@ module.exports = {
       if (isBehavior) {
         const questionsResult = await toolbox.prompt.ask(Behavior.questions);
         const { behaviorPath = '' } = questionsResult;
-        const componentNameKebabCase = kebabCase(componentName);
-        const target = `${behaviorPath}${componentNameKebabCase}.behavior.js`;
+        const componentNameFilename = kebabCase(componentName);
+        const target = `${behaviorPath}${componentNameFilename}.behavior.js`;
 
         if (fileExists(target)) {
           error(`The Behavior ${componentName} already exists at ${target}`);
@@ -55,16 +59,17 @@ module.exports = {
           template: 'behavior.js.ejs',
           target,
           props: {
-            behaviorName: componentName,
-            behaviorNameKebab: componentNameKebabCase,
+            componentName,
+            componentNameFilename,
           },
         });
 
         success(`The Behavior was generated at ${target}`);
         return;
+      } else if (isUIPattern) {
+        return UIPattern.generate(toolbox, componentName);
       }
     }
-
 
     info('Please provide a generator name. e.g. `glider-builder g behavior`');
   },
