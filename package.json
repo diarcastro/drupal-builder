@@ -2,7 +2,6 @@
   "name": "glider-builder",
   "version": "0.0.1",
   "description": "glider-builder CLI",
-  "private": true,
   "bin": {
     "glider-builder": "bin/glider-builder"
   },
