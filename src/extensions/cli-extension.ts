@@ -1,7 +1,7 @@
 
 import { GluegunToolbox } from 'gluegun'
 
-  
+
 // add your CLI-specific functionality here, which will then be accessible
 // to your commands
 module.exports = (toolbox: GluegunToolbox) => {
@@ -10,10 +10,10 @@ module.exports = (toolbox: GluegunToolbox) => {
   }
 
   // enable this if you want to read configuration in from
-  // the current folder's package.json (in a "glider-builder" property),
-  // glider-builder.config.json, etc.
+  // the current folder's package.json (in a "drupal-builder" property),
+  // drupal-builder.config.json, etc.
   // toolbox.config = {
   //   ...toolbox.config,
-  //   ...toolbox.config.loadConfig(process.cwd(), "glider-builder")
+  //   ...toolbox.config.loadConfig(process.cwd(), "drupal-builder")
   // }
 }

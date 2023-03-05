@@ -1,10 +1,10 @@
 import { GluegunToolbox } from 'gluegun';
 
 module.exports = {
-  name: 'glider-builder',
+  name: 'drupal-builder',
   run: async (toolbox: GluegunToolbox) => {
     const { print } = toolbox
 
-    print.info('Drupal Glider Builder');
+    print.info('Drupal Builder');
   },
 };

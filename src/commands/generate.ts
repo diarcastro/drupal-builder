@@ -71,6 +71,6 @@ module.exports = {
       }
     }
 
-    info('Please provide a generator name. e.g. `glider-builder g behavior`');
+    info('Please provide a generator name. e.g. `drupal-builder g behavior`');
   },
 }

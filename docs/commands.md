@@ -1,3 +1,3 @@
-# Command Reference for glider-builder
+# Command Reference for drupal-builder
 
 TODO: Add your command reference here
