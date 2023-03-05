@@ -1,9 +1,9 @@
 {
-  "name": "glider-builder",
+  "name": "drupal-builder",
   "version": "0.0.2",
-  "description": "glider-builder CLI",
+  "description": "drupal-builder CLI",
   "bin": {
-    "glider-builder": "bin/glider-builder"
+    "drupal-builder": "bin/drupal-builder"
   },
   "scripts": {
     "format": "prettier --write **/*.{js,ts,tsx,json}",

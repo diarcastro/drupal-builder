@@ -1,4 +1,4 @@
-# glider-builder CLI
+# drupal-builder CLI
 
 A CLI for to transpile, build and generate Drupal theme assets.
 
@@ -7,9 +7,9 @@ A CLI for to transpile, build and generate Drupal theme assets.
 You can run the generators with the following command:
 
 ```shell
-glider-builder new [generator] [name]
-glider-builder generate [generator] [name]
-glider-builder g [generator] [name]
+drupal-builder new [generator] [name]
+drupal-builder generate [generator] [name]
+drupal-builder g [generator] [name]
 ```
 
 ### Drupal Behaviors
@@ -17,8 +17,8 @@ glider-builder g [generator] [name]
 Add the capability to add Drupal behaviors to your theme.
 
 ```shell
-glider-builder new behavior my-drupal-behavior
-glider-builder generate behavior my-drupal-behavior
+drupal-builder new behavior my-drupal-behavior
+drupal-builder generate behavior my-drupal-behavior
 ```
 
 ### Drupal UI Patterns
@@ -26,8 +26,8 @@ glider-builder generate behavior my-drupal-behavior
 Add the capability to add Drupal UI Patterns to your theme.
 
 ```shell
-glider-builder new pattern my-component
-glider-builder generate pattern my-component
+drupal-builder new pattern my-component
+drupal-builder generate pattern my-component
 ```
 
 ## Contributors

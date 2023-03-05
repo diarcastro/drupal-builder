@@ -4,7 +4,7 @@ const src = filesystem.path(__dirname, '..')
 
 const cli = async cmd =>
   system.run(
-    'node ' + filesystem.path(src, 'bin', 'glider-builder') + ` ${cmd}`
+    'node ' + filesystem.path(src, 'bin', 'drupal-builder') + ` ${cmd}`
   )
 
 test('outputs version', async () => {

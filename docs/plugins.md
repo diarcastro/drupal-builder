@@ -1,10 +1,10 @@
-# Plugin guide for glider-builder
+# Plugin guide for drupal-builder
 
-Plugins allow you to add features to glider-builder, such as commands and
+Plugins allow you to add features to drupal-builder, such as commands and
 extensions to the `toolbox` object that provides the majority of the functionality
-used by glider-builder.
+used by drupal-builder.
 
-Creating a glider-builder plugin is easy. Just create a repo with two folders:
+Creating a drupal-builder plugin is easy. Just create a repo with two folders:
 
 ```
 commands/
@@ -42,6 +42,6 @@ This is then accessible in your plugin's commands as `toolbox.bar`.
 
 # Loading a plugin
 
-To load a particular plugin (which has to start with `glider-builder-*`),
-install it to your project using `npm install --save-dev glider-builder-PLUGINNAME`,
-and glider-builder will pick it up automatically.
+To load a particular plugin (which has to start with `drupal-builder-*`),
+install it to your project using `npm install --save-dev drupal-builder-PLUGINNAME`,
+and drupal-builder will pick it up automatically.
