@@ -20,7 +20,8 @@
     "outDir": "build",
     "strict": false,
     "target": "es5",
-    "skipLibCheck": true
+    "skipLibCheck": true,
+    "allowSyntheticDefaultImports": true
   },
   "include": ["src/**/*"],
   "exclude": ["node_modules"]

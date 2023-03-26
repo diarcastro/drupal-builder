@@ -8,3 +8,9 @@ build
 temp
 .vscode
 .idea
+
+# Tests files
+src/scss
+src/js
+templates
+patterns
