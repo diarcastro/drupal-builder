@@ -1,7 +1,8 @@
+/* eslint-disable import/no-extraneous-dependencies */
 import { series, watch as gWatch } from 'gulp';
-// @ts-ignore
 import { compileSass }  from './sass';
-import config from '../../src/config'
+import config from '../../src/config';
+import { SassTaskOptions } from '../types/types';
 
 const themeSassCompilerOptions = {
   isProductionEnv: config.isProductionEnv,
@@ -10,7 +11,7 @@ const themeSassCompilerOptions = {
   compilerOptions: config.sassOptions.compilerOptions,
 };
 
-const compileSassTask = compileSass.bind({ ...themeSassCompilerOptions });
+const compileSassTask = compileSass.bind({ ...themeSassCompilerOptions as SassTaskOptions });
 compileSassTask.displayName = 'compileSass';
 
 const tasks = {
@@ -23,7 +24,7 @@ const watchSass = () => gWatch(
     ...config.scss.theme.filesToWatch,
   ],
   { ignoreInitial: false },
-  tasks.sass
+  tasks.sass,
 );
 
 export const watch = () => {

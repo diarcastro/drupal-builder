@@ -1,3 +1,4 @@
+/* eslint-disable import/no-extraneous-dependencies */
 import * as process from 'process';
 import * as parser from 'yargs-parser';
 

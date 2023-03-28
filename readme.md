@@ -1,6 +1,6 @@
 # drupal-builder CLI
 
-A CLI for to transpile, build and generate Drupal theme assets.
+A Drupal CLI for to transpile, build and generate Drupal theme assets.
 
 ## Generators
 

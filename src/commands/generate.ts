@@ -5,8 +5,8 @@ import {
 } from 'lodash';
 
 import { fileExists } from '../utils/fs';
-import Behavior from '../utils/behaviors'
-import UiPatterns, { UIPattern } from '../utils/ui-patterns'
+import Behavior from '../utils/behaviors';
+import UiPatterns, { UIPattern } from '../utils/ui-patterns';
 
 module.exports = {
   name: 'generate',
@@ -37,8 +37,8 @@ module.exports = {
           {
             type: 'input',
             name: 'componentName',
-            message: isBehavior ? Behavior.componentNameQuestion : `What is the name of the new component?`
-          }
+            message: isBehavior ? Behavior.componentNameQuestion : 'What is the name of the new component?',
+          },
         ]);
 
         componentName = camelCase(result.componentName);
@@ -73,4 +73,4 @@ module.exports = {
 
     info('Please provide a generator name. e.g. `drupal-builder g behavior`');
   },
-}
+};

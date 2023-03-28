@@ -13,3 +13,18 @@ export type UIPatternTemplateProps = {
   variantNameSnakeCase: string;
   variantLabel: string;
 } | null;
+
+export type SassCompilerOptions = {
+  errLogToConsole: boolean;
+  outputStyle: string;
+  sourceMap: boolean;
+  includePaths?: Array<string>;
+} | null;
+
+
+export type SassTaskOptions = {
+  isProductionEnv: boolean;
+  sourceFiles: string | string[] | null;
+  destFiles: string;
+  compilerOptions?: SassCompilerOptions;
+};

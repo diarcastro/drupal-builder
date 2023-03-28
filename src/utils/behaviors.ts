@@ -1,5 +1,5 @@
 import { toLower } from 'lodash';
-import { PromptOptions } from 'gluegun/build/types/toolbox/prompt-enquirer-types'
+import { PromptOptions } from 'gluegun/build/types/toolbox/prompt-enquirer-types';
 
 /**
  * Alias for the behavior generator

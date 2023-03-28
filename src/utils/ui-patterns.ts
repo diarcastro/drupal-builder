@@ -4,11 +4,11 @@ import {
   snakeCase,
   startCase,
   toLower,
-} from 'lodash'
-import { PromptOptions } from 'gluegun/build/types/toolbox/prompt-enquirer-types'
-import { GluegunToolbox } from 'gluegun'
+} from 'lodash';
+import { PromptOptions } from 'gluegun/build/types/toolbox/prompt-enquirer-types';
+import { GluegunToolbox } from 'gluegun';
 
-import { TemplateItem, UIPatternTemplateProps } from '../types/types'
+import { TemplateItem, UIPatternTemplateProps } from '../types/types';
 
 /**
  * Alias for the UI Pattern generator
@@ -90,7 +90,7 @@ const isUIPattern = (generatorType: string): boolean => {
 export const UIPattern = {
   componentNameQuestion,
   isUIPattern,
-  async generate (toolbox: GluegunToolbox, componentName: string) {
+  async generate(toolbox: GluegunToolbox, componentName: string) {
     const questionsResult = await toolbox.prompt.ask(questions);
     const { uiPatternPath = '', variantName = null } = questionsResult;
     const filesToGenerate = [];
@@ -127,7 +127,7 @@ export const UIPattern = {
 
     await Promise.all(results);
     toolbox.print.success(`The UI Pattern ${componentName} was created at ${uiPatternPath}`);
-    toolbox.print.success(`The following files were created: ${filesToGenerate.join(",\n")}`);
+    toolbox.print.success(`The following files were created: ${filesToGenerate.join(',\n')}`);
     return true;
   },
 };

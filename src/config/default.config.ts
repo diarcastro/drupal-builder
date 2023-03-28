@@ -27,8 +27,8 @@ const defaultConfig = {
         path.join(process.cwd(), '/node_modules/'),
         path.join(process.cwd(), '/src/scss/'),
       ],
-    }
-  }
+    },
+  },
 };
 
 export default defaultConfig;

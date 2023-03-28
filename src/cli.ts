@@ -1,9 +1,9 @@
-const { build } = require('gluegun')
+import { build } from 'gluegun';
 
 /**
  * Create the cli and kick it off
  */
-async function run(argv) {
+export const run = async function run(argv) {
   // create a CLI runtime
   const cli = build()
     .brand('drupal-builder')
@@ -11,10 +11,8 @@ async function run(argv) {
     .plugins('./node_modules', { matching: 'drupal-builder-*', hidden: true })
     .help() // provides default for help, h, --help, -h
     .version() // provides default for version, v, --version, -v
-    .create()
+    .create();
 
   // and run it
-  return cli.run(argv)
-}
-
-module.exports = { run }
+  return cli.run(argv);
+};

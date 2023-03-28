@@ -1,13 +1,14 @@
 {
   "name": "drupal-builder",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": "drupal-builder CLI",
   "bin": {
     "drupal-builder": "bin/drupal-builder"
   },
   "scripts": {
     "format": "prettier --write **/*.{js,ts,tsx,json}",
-    "lint": "tslint -p .",
+    "lint": "eslint ./src --ext .js,.ts",
+    "lint-fix": "yarn lint --fix",
     "gulp": "gulp",
     "clean-build": "rm -rf ./build",
     "compile": "tsc -p .",
@@ -37,12 +38,17 @@
     "gluegun": "latest",
     "lodash": "^4.17.21",
     "ts-node": "^10.9.1",
-    "typescript": "3.2.2"
+    "typescript": "^5.0.2"
   },
   "devDependencies": {
     "@types/jest": "^23.3.10",
     "@types/lodash": "^4.14.191",
     "@types/node": "^10.12.12",
+    "@typescript-eslint/eslint-plugin": "^5.57.0",
+    "@typescript-eslint/parser": "^5.57.0",
+    "eslint": "^8.36.0",
+    "eslint-config-airbnb-typescript": "^17.0.0",
+    "eslint-plugin-import": "^2.27.5",
     "gulp": "^4.0.2",
     "gulp-autoprefixer": "^8.0.0",
     "gulp-clean-css": "^4.3.0",
@@ -55,18 +61,20 @@
     "prettier": "^1.12.1",
     "sass": "^1.60.0",
     "tailwindcss": "^3.2.7",
-    "ts-jest": "^23.10.5",
-    "tslint": "^5.12.0",
-    "tslint-config-prettier": "^1.17.0",
-    "tslint-config-standard": "^8.0.1"
+    "ts-jest": "^23.10.5"
   },
   "jest": {
     "preset": "ts-jest",
     "testEnvironment": "node"
   },
   "prettier": {
-    "semi": false,
-    "singleQuote": true
+    "semi": true,
+    "singleQuote": true,
+    "bracketSpacing": true,
+    "trailingComma": "all",
+    "arrowParens": "always",
+    "printWidth": 100,
+    "tabWidth": 2
   },
   "engines": {
     "node": ">=16.x"

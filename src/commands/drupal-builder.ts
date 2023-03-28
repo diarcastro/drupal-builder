@@ -1,8 +1,9 @@
+/* eslint-disable import/no-extraneous-dependencies */
 import { GluegunToolbox } from 'gluegun';
 import * as execa from 'execa';
 
-import { isProductionEnv } from '../config/env'
-import { START_COMMAND } from '../config'
+import { isProductionEnv } from '../config/env';
+import { START_COMMAND } from '../config';
 
 module.exports = {
   name: 'drupal-builder',
@@ -24,7 +25,7 @@ module.exports = {
       commandArguments.push('--');
       commandArguments.push('--env=dev');
     }
-    // @ts-ignore
+
     return execa('npm', commandArguments, { stdio: 'inherit', shell: true });
   },
 };
