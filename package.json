@@ -1,6 +1,6 @@
 {
   "name": "drupal-builder",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "description": "drupal-builder CLI",
   "bin": {
     "drupal-builder": "bin/drupal-builder"
@@ -20,12 +20,16 @@
     "coverage": "jest --coverage"
   },
   "files": [
-    "tsconfig.json",
-    "build",
+    ".eslintrc",
     "LICENSE",
-    "readme.md",
+    "bin",
+    "build",
     "docs",
-    "bin"
+    "gulpfile.ts",
+    "postcss.config.js",
+    "readme.md",
+    "tailwind.config.js",
+    "tsconfig.json"
   ],
   "keywords": [
     "drupal",

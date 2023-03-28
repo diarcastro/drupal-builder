@@ -1,9 +1,12 @@
 import * as path from 'path';
+// eslint-disable-next-line import/no-extraneous-dependencies
+const resolveConfig = require('tailwindcss/resolveConfig');
 import { isProductionEnv } from './env';
 
 import * as tailwindConfig from '../../tailwind.config';
+const tailwindConfigResolved = resolveConfig(tailwindConfig);
 
-const { content = [] } = tailwindConfig;
+const { content = [] } = tailwindConfigResolved;
 const tailwindContent = (
   content && content.length && content.map((contentItem) => path.join(process.cwd(), contentItem))
 ) || [];
