@@ -28,4 +28,5 @@ export type SassTaskOptions = {
   sourceFiles: string | string[] | null;
   destFiles: string;
   compilerOptions?: SassCompilerOptions;
+  renameFunction?: (file: string) => string;
 };

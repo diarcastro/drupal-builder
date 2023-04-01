@@ -7,6 +7,7 @@ import * as plumber from 'gulp-plumber';
 import * as rename from 'gulp-rename';
 import * as postcss from 'gulp-postcss';
 import * as tailwindcss from 'tailwindcss';
+import { isFunction } from 'lodash';
 
 // import { logBlue, logError } from '../utils/log';
 import { SassTaskOptions } from '../types/types';
@@ -21,6 +22,7 @@ export const compileSass = function (done) {
     sourceFiles = null,
     destFiles = '',
     compilerOptions = {},
+    renameFunction,
   } = (this as SassTaskOptions) || {};
 
   const postCssPlugins = [
@@ -44,6 +46,10 @@ export const compileSass = function (done) {
     .pipe(postcss(postCssPlugins)).on('error', done)
     .pipe(autoprefixer(autoprefixerOptions))
     .pipe(rename(renameOptions));
+
+  if (isFunction(renameFunction)) {
+    task = task.pipe(rename(renameFunction));
+  }
 
   if (isDevelopmentEnv) {
     task = task.pipe(plumber.stop());

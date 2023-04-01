@@ -1,21 +1,28 @@
 /* eslint-disable import/no-extraneous-dependencies */
 import { series, watch as gWatch } from 'gulp';
+import { map } from 'lodash';
+
 import { compileSass }  from './sass';
 import config from '../../src/config';
 import { SassTaskOptions } from '../types/types';
 
-const themeSassCompilerOptions = {
-  isProductionEnv: config.isProductionEnv,
-  sourceFiles: config.sass.theme.src,
-  destFiles: config.sass.theme.dest,
-  compilerOptions: config.sassOptions.compilerOptions,
-};
+const sassTasks = series(map(config.sass, (sassConfig, sassConfigKey) => {
+  const sassCompilerOptions = {
+    isProductionEnv : config.isProductionEnv,
+    sourceFiles     : sassConfig.src,
+    destFiles       : sassConfig.dest,
+    compilerOptions : config.sassOptions.compilerOptions,
+    renameFunction  : sassConfig.renameFunction || null,
+  };
 
-const compileThemeSass = compileSass.bind({ ...themeSassCompilerOptions as SassTaskOptions });
-compileThemeSass.displayName = 'compileSass';
+  const compileSassTask = compileSass.bind({ ...sassCompilerOptions as SassTaskOptions });
+  compileSassTask.displayName = `compileSass:${sassConfigKey}`;
+
+  return compileSassTask;
+}));
 
 const tasks = {
-  sass: series(compileThemeSass),
+  sass: sassTasks,
 };
 
 const watchSass = () => gWatch(
