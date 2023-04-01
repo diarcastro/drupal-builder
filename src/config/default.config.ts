@@ -14,9 +14,9 @@ const tailwindContent = (
 const defaultConfig = {
   isProductionEnv,
   name: 'drupal-builder',
-  scss: { /* Create an array here ro transpile multiple resources */
+  sass: { /* Create an array here ro transpile multiple resources */
     theme: {
-      src: path.join(process.cwd(), 'src/scss/**/*.scss'),
+      src: path.join(process.cwd(), 'src/sass/**/*.scss'),
       dest: path.join(process.cwd(), 'dist/css/'),
       filesToWatch: tailwindContent,
     },
@@ -28,7 +28,7 @@ const defaultConfig = {
       sourceMap: !isProductionEnv,
       includePaths: [
         path.join(process.cwd(), '/node_modules/'),
-        path.join(process.cwd(), '/src/scss/'),
+        path.join(process.cwd(), '/src/sass/'),
       ],
     },
   },

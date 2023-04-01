@@ -6,7 +6,9 @@ import * as autoprefixer from 'gulp-autoprefixer';
 import * as plumber from 'gulp-plumber';
 import * as rename from 'gulp-rename';
 import * as postcss from 'gulp-postcss';
+import * as tailwindcss from 'tailwindcss';
 
+// import { logBlue, logError } from '../utils/log';
 import { SassTaskOptions } from '../types/types';
 
 const renameOptions = { suffix: '.min' };
@@ -21,10 +23,16 @@ export const compileSass = function (done) {
     compilerOptions = {},
   } = (this as SassTaskOptions) || {};
 
+  const postCssPlugins = [
+    tailwindcss,
+  ];
+
   if (!sourceFiles) {
     console.log('No source files or destination files found. Exiting.');
     return done();
   }
+
+  console.log(`Compiling sass files from ${sourceFiles} to ${destFiles}`, 'ThemeSass: ');
   const isDevelopmentEnv = !isProductionEnv;
   let task = src(sourceFiles);
 
@@ -33,7 +41,7 @@ export const compileSass = function (done) {
   }
 
   task = task.pipe(sass.sync(compilerOptions).on('error', isDevelopmentEnv ? sass.logError : done))
-    .pipe(postcss()).on('error', done)
+    .pipe(postcss(postCssPlugins)).on('error', done)
     .pipe(autoprefixer(autoprefixerOptions))
     .pipe(rename(renameOptions));
 

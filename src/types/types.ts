@@ -23,6 +23,7 @@ export type SassCompilerOptions = {
 
 
 export type SassTaskOptions = {
+  name?: string;
   isProductionEnv: boolean;
   sourceFiles: string | string[] | null;
   destFiles: string;

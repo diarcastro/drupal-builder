@@ -1,12 +1,12 @@
 {
   "name": "drupal-builder",
-  "version": "0.0.5",
+  "version": "0.0.7",
   "description": "drupal-builder CLI",
   "bin": {
     "drupal-builder": "bin/drupal-builder"
   },
   "scripts": {
-    "format": "prettier --write **/*.{js,ts,tsx,json}",
+    "format": "prettier --write **/*.{js,ts,json}",
     "lint": "eslint ./src --ext .js,.ts",
     "lint-fix": "yarn lint --fix",
     "gulp": "gulp",
@@ -25,7 +25,6 @@
     "bin",
     "build",
     "docs",
-    "gulpfile.ts",
     "postcss.config.js",
     "readme.md",
     "tailwind.config.js",
@@ -41,6 +40,7 @@
   "dependencies": {
     "@typescript-eslint/eslint-plugin": "^5.57.0",
     "@typescript-eslint/parser": "^5.57.0",
+    "chalk": "^5.2.0",
     "eslint": "^8.36.0",
     "eslint-config-airbnb-typescript": "^17.0.0",
     "eslint-plugin-import": "^2.27.5",

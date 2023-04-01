@@ -1,11 +1,10 @@
-/* eslint-disable import/no-extraneous-dependencies */
 import { GluegunToolbox } from 'gluegun';
-import * as execa from 'execa';
+import { series } from 'gulp';
 
-import { isProductionEnv } from '../config/env';
+import { build, watch } from '../gulp/tasks';
 import { START_COMMAND } from '../config';
 
-module.exports = {
+const runCommand = {
   name: 'drupal-builder',
   run: async (toolbox: GluegunToolbox) => {
     const {
@@ -17,15 +16,14 @@ module.exports = {
     } = parameters || {};
     const isStart = command === START_COMMAND;
 
-    const commandArguments = ['run', 'gulp'];
     if (isStart) {
-      commandArguments.push('watch');
-    }
-    if (!isProductionEnv) {
-      commandArguments.push('--');
-      commandArguments.push('--env=dev');
+      console.log('Start/Watch process');
+      return series(watch)();
     }
 
-    return execa('npm', commandArguments, { stdio: 'inherit', shell: true });
+    console.log('Build process');
+    return series(build)();
   },
 };
+
+export default runCommand;

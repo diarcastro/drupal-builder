@@ -1,5 +1,6 @@
 /** @type {import('tailwindcss').Config} */
 
+// eslint-disable-next-line no-undef
 module.exports = {
   content: [
     './src/**/*.js',
@@ -54,4 +55,4 @@ module.exports = {
   },
   /* https://tailwindcss.com/docs/content-configuration#safelisting-classes */
   safelist: [],
-}
+};

@@ -6,28 +6,30 @@ import { SassTaskOptions } from '../types/types';
 
 const themeSassCompilerOptions = {
   isProductionEnv: config.isProductionEnv,
-  sourceFiles: config.scss.theme.src,
-  destFiles: config.scss.theme.dest,
+  sourceFiles: config.sass.theme.src,
+  destFiles: config.sass.theme.dest,
   compilerOptions: config.sassOptions.compilerOptions,
 };
 
-const compileSassTask = compileSass.bind({ ...themeSassCompilerOptions as SassTaskOptions });
-compileSassTask.displayName = 'compileSass';
+const compileThemeSass = compileSass.bind({ ...themeSassCompilerOptions as SassTaskOptions });
+compileThemeSass.displayName = 'compileSass';
 
 const tasks = {
-  sass: series(compileSassTask),
+  sass: series(compileThemeSass),
 };
 
 const watchSass = () => gWatch(
   [
-    config.scss.theme.src,
-    ...config.scss.theme.filesToWatch,
+    config.sass.theme.src,
+    ...config.sass.theme.filesToWatch,
   ],
   { ignoreInitial: false },
   tasks.sass,
 );
 
-export const watch = () => {
+export const watchTasks = () => {
   watchSass();
 };
+
 export const build = series(tasks.sass);
+export const watch = series(watchTasks);
