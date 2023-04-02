@@ -1,6 +1,6 @@
 {
   "name": "drupal-builder",
-  "version": "0.0.7",
+  "version": "0.0.8",
   "description": "drupal-builder CLI",
   "bin": {
     "drupal-builder": "bin/drupal-builder"
