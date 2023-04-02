@@ -8,8 +8,9 @@ import postcss from 'gulp-postcss';
 import tailwindcss from 'tailwindcss';
 import { isFunction, noop } from 'lodash';
 
-// import { logBlue, logError } from '../utils/log';
+import { logBlue, logWarning } from '../utils/log';
 import { SassTaskOptions } from '../types/types';
+import * as process from 'process';
 
 const renameOptions = { suffix: '.min' };
 const autoprefixerOptions = { cascade: false };
@@ -32,11 +33,17 @@ export const compileSass = function (done: () => void = noop) {
   ];
 
   if (!sourceFiles) {
-    console.log('No source files or destination files found. Exiting.');
-    return done();
+    logWarning('No source files or destination files found!');
+    return Promise.resolve();
   }
 
-  console.log(`Compiling sass files from ${sourceFiles} to ${destFiles}`, 'ThemeSass: ');
+  const sourceFilesToPrint = Array.isArray(sourceFiles)
+    ? sourceFiles.join(', ').replace(process.cwd(), '')
+    : sourceFiles.replace(process.cwd(), '');
+
+  const destFilesToPrint = destFiles.replace(process.cwd(), '');
+
+  logBlue(`from ${sourceFilesToPrint} to ${destFilesToPrint}`, `${this.displayName}:`);
   const isDevelopmentEnv = !isProductionEnv;
   let task = src(sourceFiles);
 

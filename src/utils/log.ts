@@ -1,15 +1,24 @@
 // eslint-disable-next-line import/no-extraneous-dependencies
-import chalk from 'chalk';
+import 'colors';
 
+const SEPARATOR = '⩥';
 const log = console.log;
-export const errorStyle = chalk.bold.red;
-export const cssStyle = chalk.bold.blue.bgBlue;
-export const defaultStyle = chalk.white;
+const drupalBuilderStyled = ` Drupal Builder ${SEPARATOR} `.inverse.bold;
 
-export const logBlue = (message: string, prefix: string) => {
-  log(`${cssStyle(prefix)}${defaultStyle(message)}`);
+export const logBlue = (message: string, prefix: string = '') => {
+  const prefixStyled = prefix && ` ${prefix} ${SEPARATOR}`.white.bgBlue.bold;
+  const messageStyled = ` ${message}`.white.bgBlue;
+  log(`${drupalBuilderStyled}${prefixStyled}${messageStyled}`);
 };
 
 export const logError = (message: string) => {
-  log(`${errorStyle(message)}`);
+  log(`${drupalBuilderStyled} ${message}`.red);
+};
+
+export const logWarning = (message: string) => {
+  log(`${drupalBuilderStyled} ${message}`.yellow.bold);
+};
+
+export const logSuccess = (message: string) => {
+  log(`${drupalBuilderStyled} ${message}`.green.bold);
 };

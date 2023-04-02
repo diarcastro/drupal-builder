@@ -3,6 +3,7 @@ import { series } from 'gulp';
 
 import { build, watch } from '../gulp/tasks';
 import { START_COMMAND } from '../config';
+import { logSuccess } from '../utils/log';
 
 const runCommand = {
   name: 'drupal-builder',
@@ -17,12 +18,12 @@ const runCommand = {
     const isStart = command === START_COMMAND;
 
     if (isStart) {
-      console.log('Start/Watch process');
+      logSuccess('Start/Watch process');
       // @ts-ignore
       return series(watch)();
     }
 
-    console.log('Build process');
+    logSuccess('Build process');
     // @ts-ignore
     return series(build)();
   },

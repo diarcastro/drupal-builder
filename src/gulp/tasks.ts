@@ -4,10 +4,16 @@ import { map } from 'lodash';
 import config from '../config';
 
 import { compileSass }  from './sass';
+import { logSuccess } from '../utils/log';
 
-const sassTasks = series(map(config.sass, (sassConfig, sassConfigKey) => {
+const doneTask = () => {
+  logSuccess('Completed!');
+  return Promise.resolve();
+};
+
+const sassTasks = map(config.sass, (sassConfig, sassConfigKey) => {
   const sassCompilerOptions = {
-    displayName     : `compileSass:${sassConfigKey}`,
+    displayName     : `sass:${sassConfigKey}`,
     isProductionEnv : config.isProductionEnv,
     sourceFiles     : sassConfig.src,
     destFiles       : sassConfig.dest,
@@ -16,10 +22,12 @@ const sassTasks = series(map(config.sass, (sassConfig, sassConfigKey) => {
   };
 
   return compileSass.bind({ ...sassCompilerOptions });
-}));
+});
+
+sassTasks.push(doneTask);
 
 const tasks = {
-  sass: sassTasks,
+  sass: series(sassTasks),
 };
 
 const watchSass = () => gWatch(
