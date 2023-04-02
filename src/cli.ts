@@ -3,7 +3,7 @@ import { build } from 'gluegun';
 /**
  * Create the cli and kick it off
  */
-export const run = async function run(argv) {
+export const run = async function run(argv: string) {
   // create a CLI runtime
   const cli = build()
     .brand('drupal-builder')

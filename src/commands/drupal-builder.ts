@@ -18,10 +18,12 @@ const runCommand = {
 
     if (isStart) {
       console.log('Start/Watch process');
+      // @ts-ignore
       return series(watch)();
     }
 
     console.log('Build process');
+    // @ts-ignore
     return series(build)();
   },
 };

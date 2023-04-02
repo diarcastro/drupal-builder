@@ -5,7 +5,7 @@ import {
 } from 'lodash';
 
 import { fileExists } from '../utils/fs';
-import Behavior from '../utils/behaviors';
+import { Behavior } from '../utils/behaviors';
 import UiPatterns, { UIPattern } from '../utils/ui-patterns';
 
 module.exports = {

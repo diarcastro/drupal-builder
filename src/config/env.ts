@@ -1,6 +1,5 @@
 /* eslint-disable import/no-extraneous-dependencies */
-import * as process from 'process';
-import * as parser from 'yargs-parser';
+import parser from 'yargs-parser';
 
 const args = parser(process.argv);
 

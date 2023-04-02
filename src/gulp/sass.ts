@@ -1,13 +1,12 @@
-/* eslint-disable import/no-extraneous-dependencies */
 import { src, dest } from 'gulp';
-import * as gulpSass from 'gulp-sass';
-import * as dartSass from 'sass';
-import * as autoprefixer from 'gulp-autoprefixer';
-import * as plumber from 'gulp-plumber';
-import * as rename from 'gulp-rename';
-import * as postcss from 'gulp-postcss';
-import * as tailwindcss from 'tailwindcss';
-import { isFunction } from 'lodash';
+import gulpSass from 'gulp-sass';
+import dartSass from 'sass';
+import autoprefixer from 'gulp-autoprefixer';
+import plumber from 'gulp-plumber';
+import rename from 'gulp-rename';
+import postcss from 'gulp-postcss';
+import tailwindcss from 'tailwindcss';
+import { isFunction, noop } from 'lodash';
 
 // import { logBlue, logError } from '../utils/log';
 import { SassTaskOptions } from '../types/types';
@@ -16,14 +15,17 @@ const renameOptions = { suffix: '.min' };
 const autoprefixerOptions = { cascade: false };
 const sass = gulpSass(dartSass);
 
-export const compileSass = function (done) {
+export const compileSass = function (done: () => void = noop) {
   const {
     isProductionEnv = true,
     sourceFiles = null,
     destFiles = '',
     compilerOptions = {},
     renameFunction,
+    displayName = '',
   } = (this as SassTaskOptions) || {};
+
+  this.displayName = displayName || 'compileSass';
 
   const postCssPlugins = [
     tailwindcss,

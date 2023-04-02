@@ -1,21 +1,25 @@
 {
   "compilerOptions": {
-    "experimentalDecorators": true,
     "baseUrl": "./src",
+    "target": "es5",
+    "sourceMap": true,
     "lib": ["es2015", "scripthost", "es2015.promise", "es2015.generator", "es2015.iterable", "dom"],
+    "allowJs": true,
+    "skipLibCheck": true,
+    "esModuleInterop": true,
+    "allowSyntheticDefaultImports": true,
+    "strict": true,
+    "forceConsistentCasingInFileNames": true,
+    "noFallthroughCasesInSwitch": true,
     "module": "commonjs",
     "moduleResolution": "node",
-    "noImplicitAny": false,
+    "resolveJsonModule": true,
+    "isolatedModules": true,
+    "noEmit": true,
+    "jsx": "react-jsx",
     "noImplicitThis": false,
-    "noUnusedLocals": true,
-    "sourceMap": false,
-    "inlineSourceMap": true,
-    "outDir": "build",
-    "strict": false,
-    "target": "es5",
-    "skipLibCheck": true,
-    "allowSyntheticDefaultImports": true
+    "types": ["node"]
   },
-  "include": ["src/**/*"],
+  "include": ["src/**/*.ts", "src/**/*.js"],
   "exclude": ["node_modules"]
 }

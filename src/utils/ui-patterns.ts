@@ -23,6 +23,10 @@ const BEHAVIOR_KEYS = [
 const componentNameQuestion = 'What is the name of the new UI Pattern?';
 
 const templates = (props: UIPatternTemplateProps, scss = true, js = true): TemplateItem[] => {
+  if (!props) {
+    return [];
+  }
+
   const templatesToCreate = [
     {
       template: 'ui-pattern/template.patterns.yml.ejs',
@@ -92,8 +96,8 @@ export const UIPattern = {
   isUIPattern,
   async generate(toolbox: GluegunToolbox, componentName: string) {
     const questionsResult = await toolbox.prompt.ask(questions);
-    const { uiPatternPath = '', variantName = null } = questionsResult;
-    const filesToGenerate = [];
+    const { uiPatternPath = '', variantName = '' } = questionsResult;
+    const filesToGenerate:Array<string> = [];
 
     const componentNameSnakeCase = snakeCase(componentName);
     const componentNameFilename = kebabCase(componentName);
@@ -111,7 +115,7 @@ export const UIPattern = {
     };
 
     const renderedTemplates = templates(props);
-    const results:Promise<string>[] = map(renderedTemplates, ({ template, target }) => {
+    const results:Promise<string>[] = map(renderedTemplates, ({ template = '', target = '' }: TemplateItem) => {
       if (!target) {
         return Promise.resolve('');
       }

@@ -41,7 +41,3 @@ export const Behavior = {
   componentNameQuestion,
   questions,
 };
-
-export default Behavior;
-
-
