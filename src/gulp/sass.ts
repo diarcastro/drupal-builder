@@ -10,7 +10,7 @@ import { isFunction, noop } from 'lodash';
 
 import { logBlue, logWarning } from '../utils/log';
 import { SassTaskOptions } from '../types/types';
-import * as process from 'process';
+import { toSourceFiles } from '../utils/strings';
 
 const renameOptions = { suffix: '.min' };
 const autoprefixerOptions = { cascade: false };
@@ -37,11 +37,8 @@ export const compileSass = function (done: () => void = noop) {
     return Promise.resolve();
   }
 
-  const sourceFilesToPrint = Array.isArray(sourceFiles)
-    ? sourceFiles.join(', ').replace(process.cwd(), '')
-    : sourceFiles.replace(process.cwd(), '');
-
-  const destFilesToPrint = destFiles.replace(process.cwd(), '');
+  const sourceFilesToPrint = toSourceFiles(sourceFiles);
+  const destFilesToPrint = toSourceFiles(destFiles);
 
   logBlue(`from ${sourceFilesToPrint} to ${destFilesToPrint}`, `${this.displayName}:`);
   const isDevelopmentEnv = !isProductionEnv;

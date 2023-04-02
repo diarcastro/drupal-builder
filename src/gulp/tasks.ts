@@ -1,13 +1,23 @@
 import { series, watch as gWatch } from 'gulp';
-import { map } from 'lodash';
+import { map, last } from 'lodash';
 
 import config from '../config';
 
 import { compileSass }  from './sass';
 import { logSuccess } from '../utils/log';
 
+const timing: Array<number> = [];
+
+const startTiming = () => {
+  timing.push(Date.now());
+  return Promise.resolve();
+};
+
 const doneTask = () => {
-  logSuccess('Completed!');
+  const now = Date.now();
+  const lastTiming = last(timing) || Date.now();
+  const diff = (now - lastTiming) / 1000;
+  logSuccess(`[${diff}s] Completed!`);
   return Promise.resolve();
 };
 
@@ -24,6 +34,7 @@ const sassTasks = map(config.sass, (sassConfig, sassConfigKey) => {
   return compileSass.bind({ ...sassCompilerOptions });
 });
 
+sassTasks.unshift(startTiming);
 sassTasks.push(doneTask);
 
 const tasks = {
