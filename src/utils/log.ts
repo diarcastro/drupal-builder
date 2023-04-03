@@ -11,6 +11,12 @@ export const logBlue = (message: string, prefix: string = '') => {
   log(`${drupalBuilderStyled}${prefixStyled}${messageStyled}`);
 };
 
+export const logYellow = (message: string, prefix: string = '') => {
+  const prefixStyled = prefix && ` ${prefix} ${SEPARATOR}`.black.bgYellow.bold;
+  const messageStyled = ` ${message}`.black.bgYellow;
+  log(`${drupalBuilderStyled}${prefixStyled}${messageStyled}`);
+};
+
 export const logError = (message: string) => {
   log(`${drupalBuilderStyled} ${message}`.red);
 };

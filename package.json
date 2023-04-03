@@ -1,6 +1,6 @@
 {
   "name": "drupal-builder",
-  "version": "0.0.8",
+  "version": "0.0.9",
   "description": "drupal-builder CLI",
   "bin": {
     "drupal-builder": "bin/drupal-builder"
@@ -60,16 +60,23 @@
     "typescript": "^5.0.2"
   },
   "devDependencies": {
+    "@babel/core": "^7.21.4",
+    "@babel/preset-env": "^7.21.4",
     "@types/gulp": "^4.0.10",
     "@types/gulp-autoprefixer": "^0.0.33",
+    "@types/gulp-babel": "^6.1.30",
     "@types/gulp-plumber": "^0.0.33",
     "@types/gulp-postcss": "^8.0.2",
     "@types/gulp-rename": "^2.0.1",
     "@types/gulp-sass": "^5.0.0",
+    "@types/gulp-sourcemaps": "^0.0.35",
+    "@types/gulp-uglify": "^3.0.7",
     "@types/jest": "^23.3.10",
     "@types/lodash": "^4.14.191",
     "@types/node": "^10.12.12",
     "@types/yargs-parser": "^21.0.0",
+    "gulp-babel": "^8.0.0",
+    "gulp-uglify": "^3.0.2",
     "jest": "^23.6.0",
     "ts-jest": "^23.10.5"
   },
@@ -88,6 +95,11 @@
   },
   "engines": {
     "node": ">=16.x"
+  },
+  "babel": {
+    "presets": [
+      "@babel/env"
+    ]
   },
   "repository": {
     "type": "git",

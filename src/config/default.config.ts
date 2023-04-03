@@ -5,6 +5,7 @@ const resolveConfig = require('tailwindcss/resolveConfig');
 import { isProductionEnv } from './env';
 
 import * as tailwindConfig from '../../tailwind.config';
+import { DrupalBuilderConfig } from '../types/types';
 
 const tailwindConfigResolved = resolveConfig(tailwindConfig);
 
@@ -14,8 +15,9 @@ const tailwindContent = (
 ) || [];
 
 const DEFAULT_CSS_DEST = 'dist/css/';
+const DEFAULT_JS_DEST = 'dist/js/';
 
-const defaultConfig = {
+const defaultConfig: DrupalBuilderConfig = {
   isProductionEnv,
   name: 'drupal-builder',
   sass: { /* Create an array here ro transpile multiple resources */
@@ -23,12 +25,10 @@ const defaultConfig = {
       src: join(process.cwd(), 'src/{sass,scss}/**/*.scss'),
       dest: join(process.cwd(), DEFAULT_CSS_DEST),
       filesToWatch: tailwindContent,
-      renameFunction: null,
     },
     patterns: {
       src: join(process.cwd(), 'patterns/**/{sass,scss}/**/*.scss'),
       dest: join(process.cwd(), 'patterns'),
-      filesToWatch: tailwindContent,
       renameFunction: (scssFile: ParsedPath) => {
         scssFile.dirname = scssFile.dirname.replace(/s[a|c]ss/ig, DEFAULT_CSS_DEST);
       },
@@ -46,6 +46,13 @@ const defaultConfig = {
       ],
     },
   },
+  js: {
+    theme: {
+      src: join(process.cwd(), 'src/js/**/*.js'),
+      dest: join(process.cwd(), DEFAULT_JS_DEST),
+    },
+  },
+  watchOptions: { ignoreInitial: false },
 };
 
 export default defaultConfig;

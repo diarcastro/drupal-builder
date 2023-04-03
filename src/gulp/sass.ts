@@ -9,7 +9,7 @@ import tailwindcss from 'tailwindcss';
 import { isFunction, noop } from 'lodash';
 
 import { logBlue, logWarning } from '../utils/log';
-import { SassTaskOptions } from '../types/types';
+import { GulpTaskOptions } from '../types/types';
 import { toSourceFiles } from '../utils/strings';
 
 const renameOptions = { suffix: '.min' };
@@ -24,7 +24,7 @@ export const compileSass = function (done: () => void = noop) {
     compilerOptions = {},
     renameFunction,
     displayName = '',
-  } = (this as SassTaskOptions) || {};
+  } = (this as GulpTaskOptions) || {};
 
   this.displayName = displayName || 'compileSass';
 
@@ -32,8 +32,8 @@ export const compileSass = function (done: () => void = noop) {
     tailwindcss,
   ];
 
-  if (!sourceFiles) {
-    logWarning('No source files or destination files found!');
+  if (!sourceFiles || !destFiles) {
+    logWarning('No source files or destination files found for SASS task!');
     return Promise.resolve();
   }
 

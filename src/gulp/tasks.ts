@@ -4,11 +4,18 @@ import { map, last } from 'lodash';
 import config from '../config';
 
 import { compileSass }  from './sass';
+import { compileJS }  from './js';
 import { logSuccess } from '../utils/log';
+import { injectIntoArray } from '../utils/array';
 
+const {
+  isProductionEnv,
+  watchOptions,
+  sassOptions: { compilerOptions: sassCompilerOptions },
+} = config;
 const timing: Array<number> = [];
 
-const startTiming = () => {
+const startTimingTask = () => {
   timing.push(Date.now());
   return Promise.resolve();
 };
@@ -21,38 +28,71 @@ const doneTask = () => {
   return Promise.resolve();
 };
 
+const scssFilesToWatch: Array<string> = [];
 const sassTasks = map(config.sass, (sassConfig, sassConfigKey) => {
-  const sassCompilerOptions = {
+  const taskCompilerOptions = {
     displayName     : `sass:${sassConfigKey}`,
-    isProductionEnv : config.isProductionEnv,
+    isProductionEnv,
     sourceFiles     : sassConfig.src,
     destFiles       : sassConfig.dest,
-    compilerOptions : config.sassOptions.compilerOptions,
+    compilerOptions : sassCompilerOptions,
     renameFunction  : sassConfig.renameFunction || null,
   };
 
-  return compileSass.bind({ ...sassCompilerOptions });
+  const { filesToWatch } = sassConfig;
+
+  injectIntoArray(scssFilesToWatch, sassConfig.src);
+  injectIntoArray(scssFilesToWatch, filesToWatch || null);
+  return compileSass.bind({ ...taskCompilerOptions });
 });
 
-sassTasks.unshift(startTiming);
-sassTasks.push(doneTask);
+const jsFilesToWatch: Array<string> = [];
+const jsTasks = map(config.js, (jsConfig, jsConfigKey) => {
+  const taskCompilerOptions = {
+    displayName     : `JS:${jsConfigKey}`,
+    isProductionEnv,
+    sourceFiles     : jsConfig.src,
+    destFiles       : jsConfig.dest,
+    renameFunction  : jsConfig.renameFunction || null,
+  };
+  const { filesToWatch } = jsConfig;
+
+  injectIntoArray(jsFilesToWatch, jsConfig.src);
+  injectIntoArray(jsFilesToWatch, filesToWatch || null);
+  return compileJS.bind({ ...taskCompilerOptions });
+});
 
 const tasks = {
   sass: series(sassTasks),
+  js: series(jsTasks),
 };
 
 const watchSass = () => gWatch(
-  [
-    config.sass.theme.src,
-    ...config.sass.theme.filesToWatch,
-  ],
-  { ignoreInitial: false },
+  scssFilesToWatch,
+  watchOptions,
   tasks.sass,
+);
+
+const watchJs = () => gWatch(
+  jsFilesToWatch,
+  watchOptions,
+  tasks.js,
 );
 
 export const watchTasks = () => {
   watchSass();
+  watchJs();
 };
 
-export const build = series(tasks.sass);
-export const watch = series(watchTasks);
+export const build = series(
+  startTimingTask,
+  tasks.sass,
+  tasks.js,
+  doneTask,
+);
+export const watch = series(
+  startTimingTask,
+  watchTasks,
+  watchJs,
+  doneTask,
+);

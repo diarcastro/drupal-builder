@@ -23,10 +23,31 @@ export type SassCompilerOptions = {
   includePaths?: Array<string>;
 };
 
-export type GulpTask = {};
+export type DrupalBuilderConfigResource = {
+  src: string | Array<string>;
+  dest: string | Array<string>;
+  filesToWatch?: string | Array<string>;
+  renameFunction?: (scssFile: ParsedPath) => void;
+};
 
+export type DrupalBuilderConfig = {
+  isProductionEnv: boolean;
+  name: string;
+  sass: {
+    [key:string]: DrupalBuilderConfigResource;
+  };
+  sassOptions: {
+    compilerOptions: SassCompilerOptions
+  };
+  js: {
+    [key:string]: DrupalBuilderConfigResource;
+  };
+  watchOptions?: {
+    [key:string]: any;
+  };
+};
 
-export type SassTaskOptions = {
+export type GulpTaskOptions = {
   displayName?: string;
   isProductionEnv: boolean;
   sourceFiles: string | string[] | null;
