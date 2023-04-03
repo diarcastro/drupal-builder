@@ -2,7 +2,6 @@ import { series, watch as gWatch } from 'gulp';
 import { map, last } from 'lodash';
 
 import config from '../config';
-
 import { compileSass }  from './sass';
 import { compileJS }  from './js';
 import { logSuccess } from '../utils/log';
@@ -11,8 +10,10 @@ import { injectIntoArray } from '../utils/array';
 const {
   isProductionEnv,
   watchOptions,
-  sassOptions: { compilerOptions: sassCompilerOptions },
-} = config;
+  sassOptions: {
+    compilerOptions: sassCompilerOptions = {},
+  } = {},
+} = config || {};
 const timing: Array<number> = [];
 
 const startTimingTask = () => {
@@ -28,39 +29,31 @@ const doneTask = () => {
   return Promise.resolve();
 };
 
-const scssFilesToWatch: Array<string> = [];
-const sassTasks = map(config.sass, (sassConfig, sassConfigKey) => {
-  const taskCompilerOptions = {
-    displayName     : `sass:${sassConfigKey}`,
-    isProductionEnv,
-    sourceFiles     : sassConfig.src,
-    destFiles       : sassConfig.dest,
-    compilerOptions : sassCompilerOptions,
-    renameFunction  : sassConfig.renameFunction || null,
+const tasksBindingFactory = (configItems: { [key:string]: any }, task: Function, prefix: string = '') => {
+  const filesToWatch: Array<string> = [];
+  const tasks = map(configItems, (configItem, configItemKey) => {
+    const taskCompilerOptions = {
+      displayName     : `${prefix}:${configItemKey}`,
+      isProductionEnv,
+      sourceFiles     : configItem.src,
+      destFiles       : configItem.dest,
+      renameFunction  : configItem.renameFunction || null,
+      compilerOptions : sassCompilerOptions, // This is only for SASS
+    };
+
+    injectIntoArray(filesToWatch, configItem.src);
+    injectIntoArray(filesToWatch, configItem.filesToWatch);
+    return task.bind({ ...taskCompilerOptions });
+  });
+
+  return {
+    tasks,
+    filesToWatch,
   };
+};
 
-  const { filesToWatch } = sassConfig;
-
-  injectIntoArray(scssFilesToWatch, sassConfig.src);
-  injectIntoArray(scssFilesToWatch, filesToWatch || null);
-  return compileSass.bind({ ...taskCompilerOptions });
-});
-
-const jsFilesToWatch: Array<string> = [];
-const jsTasks = map(config.js, (jsConfig, jsConfigKey) => {
-  const taskCompilerOptions = {
-    displayName     : `JS:${jsConfigKey}`,
-    isProductionEnv,
-    sourceFiles     : jsConfig.src,
-    destFiles       : jsConfig.dest,
-    renameFunction  : jsConfig.renameFunction || null,
-  };
-  const { filesToWatch } = jsConfig;
-
-  injectIntoArray(jsFilesToWatch, jsConfig.src);
-  injectIntoArray(jsFilesToWatch, filesToWatch || null);
-  return compileJS.bind({ ...taskCompilerOptions });
-});
+const { tasks: sassTasks, filesToWatch: scssFilesToWatch } = tasksBindingFactory(config.sass, compileSass, 'SASS');
+const { tasks: jsTasks, filesToWatch: jsFilesToWatch } = tasksBindingFactory(config.js, compileJS, 'JS');
 
 const tasks = {
   sass: series(sassTasks),
